@@ -1,0 +1,75 @@
+package MANU;
+
+import java.util.Random;
+
+public class RandNum {
+	String Memory[] = new String[4096];
+	public void generate()
+	{
+		String memory = null;
+		String seven[]= {"800","400","200","100","080","040","020","010","008","004","002","001"};
+		Random rand = new Random();
+		
+		for (int i = 0 ; i < 4096; i++)
+		{
+			int hex = rand.nextInt(15);
+
+			if(hex == 7)
+			{
+				int index =  rand.nextInt(12);
+				memory = "7" + seven[index];
+				Memory[i]=memory;
+			}
+			else 
+			{
+				if(hex == 10)
+					memory = "A";
+				else if(hex==11)
+					memory = "B";
+				else if(hex==12)
+					memory = "C";
+				else if(hex==13)
+					memory = "D";
+				else if(hex==14)
+					memory = "E";
+				else
+					memory = String.valueOf(hex);
+				
+				for(int j =0; j < 3; j++)
+				{
+					hex = rand.nextInt(15);
+					if(hex == 10)
+						memory = memory+ "A";
+					else if(hex==11)
+						memory = memory+"B";
+					else if(hex==12)
+						memory = memory+"C";
+					else if(hex==13)
+						memory = memory+"D";
+					else if(hex==14)
+						memory =memory+ "E";
+					else
+						memory = memory+String.valueOf(hex);
+					
+				}
+				
+				Memory[i]= memory;
+			}
+			System.out.print(Memory[i] + " ");
+		}
+		
+		
+		
+	}
+	public String[] getMemory()
+	{
+		
+		return Memory;
+		
+	}
+	public static void main(String[] args){
+	    RandNum x = new RandNum();
+	    x.generate();
+	  
+	}
+}

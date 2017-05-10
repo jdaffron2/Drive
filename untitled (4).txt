@@ -1,0 +1,583 @@
+//INSTRUCTION
+
+
+package MANU;
+import java.awt.Dimension;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+
+public class instruction {
+	
+	static String Memory[] = new String[4096];
+	static String AC,DR,PC,AR,MAR,IR;
+	 private static  int sizeOfIntInHalfBytes = 3 ;
+	  private static final int numberOfBitsInAHalfByte = 4;
+	  private static final int halfByte = 0x0F;
+	  private static final char[] hexDigits = { 
+			    '0', '1', '2', '3', '4', '5', '6', '7', 
+			    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+			  };
+	  
+	
+	static int E;
+	public static void main(String[] args){
+	    RandNum x = new RandNum();
+	    x.generate();
+	    Memory = x.getMemory();
+	    System.out.println(Memory);
+	    AC= "00FF";
+	    DR = "1111";
+	    AR = "035";
+	    MAR = Memory[hex2decimal(AR)];
+	    IR= "0000";
+	    E = 1;
+	    Random rand = new Random();
+	    
+	    
+	    
+	    char randnum ;
+	    char rnum;
+	    for(int i = 0; i < 3; i++)
+	    {
+	    	int index = rand.nextInt(16);
+	    	randnum = hexDigits[index];
+	    	if(i > 0)
+	    		PC = PC+randnum;
+	    	else 
+	    		PC=String.valueOf(randnum);
+	    
+	    }
+	    setPC(PC);
+	    JFrame frame = new JFrame ("Exam 2");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension (1250, 615));
+		GUI gp = new GUI();
+		frame.getContentPane().add(gp);
+		frame.pack();
+		frame.setVisible(true);
+
+	  //  T1();
+	    //T2();
+	    
+	//  T4();
+	  //T5();
+
+	}
+	public static void setPC(String pC)
+	{
+		PC = pC;
+		
+	}
+	public String getPC()
+	{
+		return PC;
+		
+	}
+	public String T0()
+	{
+		AR = PC;
+		MAR = Memory[hex2decimal(AR)];
+		return AR;
+	}
+	
+	public static String T1()
+	{
+		
+		IR = MAR;
+		int intPC = hex2decimal(PC);
+		intPC += 1;
+		sizeOfIntInHalfBytes = 3;
+		PC = decToHex(intPC);
+		return IR;
+	}
+	public static String T2()
+	{
+		AR = IR.substring(1, 4);
+		MAR = Memory[hex2decimal(AR)];
+		return AR;
+	}
+	
+	public static String AND(boolean check)
+	{
+		if(check)
+			{
+				MAR = Memory[hex2decimal(AR)];
+				DR = MAR;
+				return DR;
+			}
+		else{
+		
+		String binary = hexToBin(AC);
+		String binary1 = hexToBin(DR);
+		String and = addAND(binary, binary1);
+		AC = binToHex(and);
+		return AC;
+		
+		}
+		
+	}
+	public static String CLA()
+	{
+		AC = "0000";
+		return AC;
+	}
+	public static int CLE()
+	{
+		E = 0;
+		return E;
+	}
+	public static String CMA()
+	{
+		System.out.println(AC);
+		String bin = hexToBin(AC);
+		System.out.println(bin);
+		String invertBin = Invert(bin);
+		System.out.println(invertBin);
+		AC = binToHex(invertBin);
+		System.out.println(AC);
+		return AC;
+	}
+	public static String addAND(String s,String t)
+	{
+		String toReturn = null;
+		for(int i = 0; i < s.length(); i++)
+		{
+			
+			if(s.charAt(i) == '1' && t.charAt(i)== '1')
+			{
+				if(i == 0)
+				{
+					toReturn = "1";
+				}
+				else
+					toReturn = toReturn + "1";
+			}
+			else
+			{
+				if(i == 0)
+				{
+					toReturn = "0";
+				}
+				else
+					toReturn = toReturn + "0";
+			}
+		}
+		return toReturn;
+	}
+	public static String CIR(String bin)
+	{
+		char a[] = new char[bin.length()];
+		int oldE = E;
+		String x= String.valueOf(oldE);
+		char lastChar = bin.charAt(bin.length()-1);
+
+		
+		for (int i = 0; i< bin.length(); i++)
+		{
+			if(i == 0)
+				a[i] = x.charAt(0);
+			else 
+			{
+				a[i] = bin.charAt(i-1);
+			}
+		}
+		E = Character.getNumericValue(lastChar);
+
+		String ab = String.valueOf(a);
+		
+		String HEXab = binToHex(ab);
+		
+		
+		AC = HEXab;
+		
+		return AC;
+	}
+	public static String CIL(String bin) {
+		char a[] = new char[bin.length()];
+		int oldE = E;
+		String x= String.valueOf(oldE);
+		char firstChar = bin.charAt(0);
+		
+		for (int i = 0; i< bin.length(); i++)
+		{
+			if(i == bin.length()-1)
+				a[i] = x.charAt(0);
+			else
+				a[i] = bin.charAt(i+1);
+			
+			
+		}
+		E = Character.getNumericValue(firstChar);
+		
+		String ab = String.valueOf(a);
+	
+		
+		String HEXab = binToHex(ab);
+		
+		
+		AC = HEXab;
+		return AC;
+	}
+	
+	public static String Invert(String bin) {
+		
+		bin = bin.replaceAll("0", "x");
+		bin = bin.replaceAll("1", "0");
+		bin = bin.replaceAll("x", "1");
+		return bin;
+	}
+	
+	public static int hex2decimal(String s) {
+        String digits = "0123456789ABCDEF";
+        s = s.toUpperCase();
+        int val = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            int d = digits.indexOf(c);
+            val = 16*val + d;
+        }
+        return val;
+    }
+	 public static String decToHex(int dec) {
+		    StringBuilder hexBuilder = new StringBuilder(sizeOfIntInHalfBytes);
+		    hexBuilder.setLength(sizeOfIntInHalfBytes);
+		    for (int i = sizeOfIntInHalfBytes-1 ; i >= 0; --i)
+		    {
+		      int j = dec & halfByte;
+		      hexBuilder.setCharAt(i, hexDigits[j]);
+		      dec >>= numberOfBitsInAHalfByte;
+		    }
+		    return hexBuilder.toString(); 
+		  }
+	 
+	 static String hexToBin(String hex){
+		    String bin = "";
+		    String binFragment = "";
+		    int iHex;
+		    hex = hex.trim();
+		    hex = hex.replaceFirst("0x", "");
+
+		    for(int i = 0; i < hex.length(); i++){
+		        iHex = Integer.parseInt(""+hex.charAt(i),16);
+		        binFragment = Integer.toBinaryString(iHex);
+
+		        while(binFragment.length() < 4){
+		            binFragment = "0" + binFragment;
+		        }
+		        bin += binFragment;
+		    }
+		    return bin;
+		}
+	 
+	 public static String binToHex(String bin) {
+		    String hex = Long.toHexString(Long.parseLong(bin, 2));
+		    
+		    return String.format("%" + (int)(Math.ceil(bin.length() / 4.0)) + "s", hex.toUpperCase()).replace(' ', '0');
+		}
+	 
+
+
+	public static String ADD(boolean check)
+	{
+		if(check) //t4
+		{
+			DR = MAR;
+			return DR;
+		}
+		else //t5
+		{
+			
+			sizeOfIntInHalfBytes = 4;
+			int intDR = hex2decimal(DR);
+			int intAC = hex2decimal(AC);
+			
+			intAC = intAC+intDR;
+			
+			AC = decToHex(intAC);
+			return AC;
+		}
+				
+	}
+	public static String STA()
+	{
+		MAR = AC;
+		return MAR;
+	}
+	public static String BUN()
+	{
+		PC = AR;
+		return PC;
+	}
+	public static String BSA(boolean check)
+	{
+		if(check) //t4
+		{
+			
+			MAR = Memory[hex2decimal(PC)];
+			int intAR = hex2decimal(AR);
+			intAR += 1;
+			sizeOfIntInHalfBytes = 3;
+			AR = decToHex(intAR);
+			return MAR;
+		}
+		else //t5
+		{
+			PC = AR;
+			return PC;
+		}
+		
+	}
+	public static String SZA ()
+	{
+		int intAC = hex2decimal(AC);
+		if (intAC == 0)
+		{
+			int intPC = hex2decimal(PC);
+			intPC +=1;
+			sizeOfIntInHalfBytes = 3;
+			PC = decToHex(intPC);
+					
+		}
+		return PC;
+	}
+	public static String SZE()
+	{
+		if(E ==0)
+		{
+			int intPC = hex2decimal(PC);
+			intPC +=1;
+			sizeOfIntInHalfBytes = 3;
+			PC = decToHex(intPC);
+		}
+		return PC;
+	}
+	public static String LDA(boolean check)
+	{
+		if(check)
+		{
+			DR = MAR;//t4
+			return DR;
+		}
+		else{
+			AC = DR; //t5
+			return AC;
+		}
+		
+		
+		
+	}
+	
+	public static String ISZ(boolean check){
+		
+		if(check)
+			{
+				DR = MAR;
+				return DR;
+			}
+		else
+		{
+			
+			int intDR = hex2decimal(DR);
+			intDR = intDR + 1;
+			sizeOfIntInHalfBytes = 4;
+		    DR = decToHex(intDR);
+		    
+		    return DR;
+		}
+	
+	}
+	
+	public static int CME(){
+		
+		if (E == 1)
+		E = 0;
+		
+		else if (E == 0)
+		E = 1;
+		
+		return E;
+	}
+	
+	public static String INC()
+	{
+		
+		
+	    int intAC = hex2decimal(AC);
+		intAC = intAC + 1;
+		sizeOfIntInHalfBytes = 4;
+	    AC = decToHex(intAC);
+		
+		return AC;
+	}
+	public static String SPA(String AC)
+	{
+		
+		AC = hexToBin(AC);
+		char a[] = new char[AC.length()];
+		
+		for (int i = 0; i< AC.length(); i++)
+		{
+			if (i == AC.length()-1)
+			{
+			
+				int intPC = hex2decimal(PC);
+				intPC = intPC + 1;
+				sizeOfIntInHalfBytes = 3;
+				PC = decToHex(intPC);
+			}
+		}
+		
+		
+		
+		return PC;
+	}
+
+	public static String SNA(String AC)
+	{
+		
+		AC = hexToBin(AC);
+		char a[] = new char[AC.length()];
+		
+		for (int i = 0; i< AC.length(); i++)
+		{
+			if (i == AC.length()-1)
+			{
+			
+				int intPC = hex2decimal(PC);
+				intPC = intPC + 1;
+				sizeOfIntInHalfBytes = 3;
+				PC = decToHex(intPC);
+			}
+		}
+		
+		
+		
+		return PC;
+	}
+	public static String T3()
+	
+	{
+		
+		if (IR.charAt(0) == '8'  )
+		{
+		
+			AR = MAR.substring(1,4);
+			
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == '9'  )
+		{
+		
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == 'A'  )
+		{
+			
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == 'B'  )
+		{
+			
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == 'C'  )
+		{
+		
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == 'D'  )
+		{
+		
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		else if ( IR.charAt(0) == 'E'  )
+		{
+		
+			AR = MAR.substring(1,4);
+			//MAR = Memory[hex2decimal(AR)];
+			return AR;
+		}
+		
+		return "";
+		
+	}
+	public static void T4()
+	{
+		if (IR.charAt(0) == '0' || IR.charAt(0) == '8'  )
+		{
+			System.out.println(AND(true));
+			
+		}
+		else if (IR.charAt(0) == '1' || IR.charAt(0) == '9'  )
+		{
+			System.out.println(ADD(true));
+		}
+		else if (IR.charAt(0) == '2' || IR.charAt(0) == 'A'  )
+		{
+			System.out.println(LDA(true));
+		}
+		else if (IR.charAt(0) == '3' || IR.charAt(0) == 'B'  )
+		{
+			System.out.println(STA());
+		}
+		else if (IR.charAt(0) == '4' || IR.charAt(0) == 'C'  )
+		{
+			System.out.println(BUN());
+		}
+		else if (IR.charAt(0) == '5' || IR.charAt(0) == 'D'  )
+		{
+			System.out.println(BSA(true));
+		}
+		else if (IR.charAt(0) == '6' || IR.charAt(0) == 'E'  )
+		{
+			System.out.println(ISZ(true));
+		}
+		
+		
+	}
+	public static void T5()
+	{
+		if (IR.charAt(0) == '0' || IR.charAt(0) == '8'  )
+		{
+			System.out.println(AND(false));
+			
+		}
+		else if (IR.charAt(0) == '1' || IR.charAt(0) == '9'  )
+		{
+			System.out.println(ADD(false));
+		}
+		else if (IR.charAt(0) == '2' || IR.charAt(0) == 'A'  )
+		{
+			System.out.println(LDA(false));
+		}
+	
+		else if (IR.charAt(0) == '5' || IR.charAt(0) == 'D'  )
+		{
+			System.out.println(BSA(false));
+		}
+		else if (IR.charAt(0) == '6' || IR.charAt(0) == 'E'  )
+		{
+			System.out.println(ISZ(false));
+		}
+		
+	}
+	public static String getMAR()
+	{
+		MAR = Memory[hex2decimal(AR)];
+		return MAR;
+	}
+
+}

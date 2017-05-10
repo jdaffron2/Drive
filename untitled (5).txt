@@ -1,0 +1,415 @@
+//GUI
+
+
+package MANU;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class GUI extends JPanel {
+	private int i = 0;
+	private instruction instruct;
+	public GUI() {
+		setLayout(null);
+		instruct = new instruction();
+		
+		JLabel PC = new JLabel("");
+		PC.setFont(new Font("Serif", Font.BOLD, 30));
+		PC.setBounds(383, 82, 82, 44);
+		add(PC);
+		PC.setText(instruct.getPC());
+		
+		
+		
+		
+		JLabel ART0 = new JLabel("");
+		ART0.setFont(new Font("Serif", Font.BOLD, 30));
+		ART0.setBounds(471, 137, 82, 58);
+		add(ART0);
+		
+		JLabel MART0 = new JLabel("");
+		MART0.setFont(new Font("Serif", Font.BOLD, 30));
+		MART0.setBounds(557, 137, 102, 64);
+		add(MART0);
+
+		JLabel PCT1 = new JLabel("");
+		PCT1.setFont(new Font("Serif", Font.BOLD, 30));
+		PCT1.setBounds(383, 211, 82, 44);
+		add(PCT1);
+		
+		JLabel IRT1 = new JLabel("");
+		IRT1.setFont(new Font("Serif", Font.BOLD, 30));
+		IRT1.setBounds(660, 211, 86, 50);
+		add(IRT1);
+		
+		JLabel ART2 = new JLabel("");
+		ART2.setFont(new Font("Serif", Font.BOLD, 30));
+		ART2.setBounds(471, 267, 86, 58);
+		add(ART2);
+		
+		JLabel MART2 = new JLabel("");
+		MART2.setFont(new Font("Serif", Font.BOLD, 30));
+		MART2.setBounds(557, 267, 102, 58);
+		add(MART2);
+		
+		JLabel ACT3 = new JLabel("");
+		ACT3.setFont(new Font("Serif", Font.BOLD, 30));
+		ACT3.setBounds(205, 332, 82, 58);
+		add(ACT3);
+		
+		JLabel DRT3 = new JLabel("");
+		DRT3.setFont(new Font("Serif", Font.BOLD, 30));
+		DRT3.setBounds(290, 332, 82, 50);
+		add(DRT3);
+		
+		JLabel PCT3 = new JLabel("");
+		PCT3.setFont(new Font("Serif", Font.BOLD, 30));
+		PCT3.setBounds(383, 332, 82, 50);
+		add(PCT3);
+		
+		JLabel IRT3 = new JLabel("");
+		IRT3.setFont(new Font("Serif", Font.BOLD, 30));
+		IRT3.setBounds(660, 341, 86, 50);
+		add(IRT3);
+		
+		JLabel ET3 = new JLabel("");
+		ET3.setFont(new Font("Serif", Font.BOLD, 30));
+		ET3.setBounds(759, 332, 64, 50);
+		add(ET3);
+		
+		JLabel ART3 = new JLabel("");
+		ART3.setFont(new Font("Serif", Font.BOLD, 30));
+		ART3.setBounds(471, 341, 82, 50);
+		add(ART3);
+		
+		JLabel MART3 = new JLabel("");
+		MART3.setFont(new Font("Serif", Font.BOLD, 30));
+		MART3.setBounds(557, 341, 102, 50);
+		add(MART3);
+		
+		JLabel ACT4 = new JLabel("");
+		ACT4.setFont(new Font("Serif", Font.BOLD, 30));
+		ACT4.setBounds(205, 392, 82, 58);
+		add(ACT4);
+		
+		JLabel DRT4 = new JLabel("");
+		DRT4.setFont(new Font("Serif", Font.BOLD, 30));
+		DRT4.setBounds(290, 398, 82, 58);
+		add(DRT4);
+		
+		JLabel PCT4 = new JLabel("");
+		PCT4.setFont(new Font("Serif", Font.BOLD, 30));
+		PCT4.setBounds(383, 392, 82, 58);
+		add(PCT4);
+		
+		JLabel ART4 = new JLabel("");
+		ART4.setFont(new Font("Serif", Font.BOLD, 30));
+		ART4.setBounds(471, 402, 86, 48);
+		add(ART4);
+		
+		JLabel MART4 = new JLabel("");
+		MART4.setFont(new Font("Serif", Font.BOLD, 30));
+		MART4.setBounds(557, 402, 102, 48);
+		add(MART4);
+		
+		JLabel IRT4 = new JLabel("");
+		IRT4.setFont(new Font("Serif", Font.BOLD, 30));
+		IRT4.setBounds(660, 405, 86, 45);
+		add(IRT4);
+		
+		JLabel ACT5 = new JLabel("");
+		ACT5.setFont(new Font("Serif", Font.BOLD, 30));
+		ACT5.setBounds(205, 454, 82, 61);
+		add(ACT5);
+		
+		JLabel DRT5 = new JLabel("");
+		DRT5.setFont(new Font("Serif", Font.BOLD, 30));
+		DRT5.setBounds(290, 454, 93, 61);
+		add(DRT5);
+		
+		JLabel PCT5 = new JLabel("");
+		PCT5.setFont(new Font("Serif", Font.BOLD, 30));
+		PCT5.setBounds(383, 466, 82, 51);
+		add(PCT5);
+		
+		JLabel ART5 = new JLabel("");
+		ART5.setFont(new Font("Serif", Font.BOLD, 30));
+		ART5.setBounds(471, 464, 86, 51);
+		add(ART5);
+		
+		JLabel MART5 = new JLabel("");
+		MART5.setFont(new Font("Serif", Font.BOLD, 30));
+		MART5.setBounds(557, 466, 92, 51);
+		add(MART5);
+		
+		JLabel IRT5 = new JLabel("");
+		IRT5.setFont(new Font("Serif", Font.BOLD, 30));
+		IRT5.setBounds(660, 466, 86, 51);
+		add(IRT5);
+		
+		JLabel instructT0 = new JLabel("");
+		instructT0.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT0.setBounds(960, 68, 207, 44);
+		add(instructT0);
+		
+		JLabel instructT1 = new JLabel("");
+		instructT1.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT1.setBounds(970, 137, 197, 44);
+		add(instructT1);
+		
+		JLabel instructT2 = new JLabel("");
+		instructT2.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT2.setBounds(960, 211, 207, 44);
+		add(instructT2);
+		
+		JLabel instructT3 = new JLabel("");
+		instructT3.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT3.setBounds(960, 282, 207, 43);
+		add(instructT3);
+		
+		JLabel instructT4 = new JLabel("");
+		instructT4.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT4.setBounds(960, 354, 207, 44);
+		add(instructT4);
+		
+		JLabel instructT5 = new JLabel("");
+		instructT5.setFont(new Font("Serif", Font.BOLD, 30));
+		instructT5.setBounds(960, 424, 207, 50);
+		add(instructT5);
+		
+		JButton btnNextInstruction = new JButton("Next Instruction");
+		btnNextInstruction.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				if(i == 0)
+				{
+					ART0.setText(instruct.T0());
+					MART0.setText(instruct.MAR);
+					instructT0.setText("010");
+					i++;
+				}
+				else if(i == 1)
+				{
+					IRT1.setText(instruct.T1());
+					PCT1.setText(instruct.PC);
+					instructT1.setText("111  010");
+					i++;
+				}
+				else if(i == 2)
+				{	
+					ART2.setText(instruct.T2());
+					MART2.setText(instruct.MAR);
+					instructT2.setText("101");
+					i++;
+				}
+				else if(i == 3)
+				{
+					if(true)
+					{
+						 if(instruct.IR.equals("7800"))
+						{
+							ACT3.setText(instruct.CLA());
+							instructT3.setText("100");
+							i++;
+						}
+						else if(instruct.IR.equals("7400"))
+						{
+							int i=instruct.CLE(); 
+							String show = String.valueOf(i);
+							ET3.setText(show);
+							instructT3.setText("100");
+							i++;
+						}
+						else if(instruct.IR.equals("7200"))
+						{
+							ACT3.setText(instruct.CMA());
+							instructT3.setText("100");
+							i++;
+						}
+						else if(instruct.IR.equals("7100"))
+						{
+							int i=instruct.CME(); 
+							String show = String.valueOf(i);
+							ET3.setText(show);
+							instructT3.setText("100");
+							i++;
+						}
+						else if(instruct.IR.equals("7080"))
+						{
+							ACT3.setText(instruct.CIR(instruct.hexToBin(instruct.AC)));
+							instructT3.setText("100");
+							i++;
+							
+						}
+						else if(instruct.IR.equals("7040"))
+						{
+							ACT3.setText(instruct.CIL(instruct.hexToBin(instruct.AC)));
+							instructT3.setText("100");
+							i++;
+							
+						}
+						else if(instruct.IR.equals("7020"))
+						{
+							ACT3.setText(instruct.INC());
+							instructT3.setText("100");
+							i++;
+							
+						}
+						else if(instruct.IR.equals("7010"))
+						{
+							PCT3.setText(instruct.SPA(instruct.AC));
+							instructT3.setText("010");
+							i++;
+						}
+						else if(instruct.IR.equals("7008"))
+						{
+							PCT3.setText(instruct.SNA(instruct.AC));
+							instructT3.setText("010");
+							i++;
+						}
+						else if(instruct.IR.equals("7004"))
+						{
+							PCT3.setText(instruct.SZA());
+							instructT3.setText("010");
+							i++;
+						}
+						else if(instruct.IR.equals("7002"))
+						{
+							PCT3.setText(instruct.SZE());
+							instructT3.setText("010");
+							i++;
+						}
+					}
+					if(instruct.T3() .equals("") )
+					{
+					i++;	
+					}
+					else
+					{
+						ART3.setText(instruct.T3());
+						MART3.setText(instruct.getMAR());
+						instructT3.setText("111");
+						i++;
+					}
+					
+				}
+				else if(i == 4)
+				{
+					if (instruct.IR.charAt(0) == '0' || instruct.IR.charAt(0) == '8'  )
+					{
+						DRT4.setText(instruct.AND(true));
+						instructT4.setText("111");
+						i++;
+						
+					}
+					else if (instruct.IR.charAt(0) == '1' || instruct.IR.charAt(0) == '9'  )
+					{
+						DRT4.setText(instruct.ADD(true));
+						instructT4.setText("111");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '2' || instruct.IR.charAt(0) == 'A'  )
+					{
+						DRT4.setText(instruct.LDA(true));
+						instructT4.setText("111");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '3' || instruct.IR.charAt(0) == 'B'  )
+					{
+						MART4.setText(instruct.STA());
+						instructT4.setText("100");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '4' || instruct.IR.charAt(0) == 'C'  )
+					{
+						PCT4.setText(instruct.BUN());
+						instructT4.setText("001");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '5' || instruct.IR.charAt(0) == 'D'  )
+					{
+						MART4.setText(instruct.BSA(true));
+						ART4.setText(instruct.AR);
+						instructT4.setText("010  001");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '6' || instruct.IR.charAt(0) == 'E'  )
+					{
+						DRT4.setText(instruct.ISZ(true));
+						instructT4.setText("111");
+						i++;
+					}
+				}
+				else if(i == 5)
+				{
+					if (instruct.IR.charAt(0) == '0' || instruct.IR.charAt(0) == '8'  )
+					{
+						ACT5.setText(instruct.AND(false));
+						instructT5.setText("100");
+						i++;
+						
+					}
+					else if (instruct.IR.charAt(0) == '1' || instruct.IR.charAt(0) == '9'  )
+					{
+						ACT5.setText(instruct.ADD(false));
+						instructT5.setText("100");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '2' || instruct.IR.charAt(0) == 'A'  )
+					{
+						ACT5.setText(instruct.LDA(false));
+						instructT5.setText("011");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '3' || instruct.IR.charAt(0) == 'B'  )
+					{
+						//MART4.setText(instruct.STA());
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '4' || instruct.IR.charAt(0) == 'C'  )
+					{
+						//PCT4.setText(instruct.BUN());
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '5' || instruct.IR.charAt(0) == 'D'  )
+					{
+						PCT5.setText(instruct.BSA(false));
+						instructT5.setText("001");
+						i++;
+					}
+					else if (instruct.IR.charAt(0) == '6' || instruct.IR.charAt(0) == 'E'  )
+					{
+						DRT5.setText(instruct.ISZ(false));
+						instructT5.setText("011");
+						i++;
+					}
+				}
+			}
+		});
+		btnNextInstruction.setBounds(960, 523, 149, 29);
+		add(btnNextInstruction);
+		
+		JLabel instruction = new JLabel("");
+		instruction.setIcon(new ImageIcon(this.getClass().getResource("/MANU/instruction.jpg")));
+		instruction.setBounds(853, 0, 353, 508);
+		add(instruction);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(this.getClass().getResource("/MANU/Tabel3.jpg")));
+		label.setBounds(0, 0, 838, 552);
+		add(label);
+		
+		
+		
+		
+		
+
+		
+	}
+}
